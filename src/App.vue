@@ -6,6 +6,12 @@
 			:quotesMax="quotesMax"
     		></app-header>
     	<app-add-quote :addQuote="addQuote"></app-add-quote>
+    	<app-quotes-area>
+			<div v-for="(quote, index) in quotes" @click="deleteQuote(index)">{{quote}}</div>
+    	</app-quotes-area>
+    	<div class="alert alert-info text-center">
+  			<strong>Info:</strong> Click on a Quote to delete it.
+		</div>
     </div>
 </template>
 
@@ -13,6 +19,7 @@
 	import EventBus from './main.js'
 	import Header from './components/header/Header.vue'
 	import AddQuote from './components/quotes/AddQuote.vue'
+	import QuotesArea from './components/quotes/QuotesArea.vue'
 
     export default {
     	created(){
@@ -26,7 +33,8 @@
     	},
     	components: {
     		'app-header': Header,
-    		'app-add-quote': AddQuote
+    		'app-add-quote': AddQuote,
+    		'app-quotes-area': QuotesArea
     	},
     	methods:{
     		addQuote(quote){
@@ -34,6 +42,9 @@
     				return alert('Max quotes quantity reached.')
     			}
     			EventBus.$emit('addQuote', quote)
+    		},
+    		deleteQuote(index){
+    			this.quotes.splice(index, 1);
     		}
     	},
     	computed:{
@@ -44,5 +55,4 @@
     }
 </script>
 
-<style>
-</style>
+

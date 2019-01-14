@@ -22,6 +22,10 @@
 		},
 		methods: {
 			registerQuote(){
+				const isBlank = /^\s*$/;
+				if(isBlank.test(this.registredQuote)){
+					return alert('Please, insert some text.');
+				}
 				this.addQuote(this.registredQuote);
 				this.registredQuote = '';
 			}
