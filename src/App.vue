@@ -5,12 +5,14 @@
     		:addQuote="addQuote"
 			:quotesMax="quotesMax"
     		></app-header>
+    	<app-add-quote :addQuote="addQuote"></app-add-quote>
     </div>
 </template>
 
 <script>
 	import EventBus from './main.js'
 	import Header from './components/header/Header.vue'
+	import AddQuote from './components/quotes/AddQuote.vue'
 
     export default {
     	created(){
@@ -23,18 +25,15 @@
     		}
     	},
     	components: {
-    		'app-header': Header
+    		'app-header': Header,
+    		'app-add-quote': AddQuote
     	},
     	methods:{
     		addQuote(quote){
-    			EventBus.$emit('addQuote', quote)
-    		}
-    	},
-    	watch:{
-    		quotes(){
-    			if(this.quotes.length > this.quotesMax){
-    				alert('Max quotes quantity reached.')
+    			if(this.quotes.length === this.quotesMax){
+    				return alert('Max quotes quantity reached.')
     			}
+    			EventBus.$emit('addQuote', quote)
     		}
     	},
     	computed:{
